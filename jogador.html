@@ -1,19 +1,230 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171923"><title>Fut de sexta — Jogador</title>
-<style>
-:root{--bg:#101116;--panel:#1b1d27;--panel2:#242734;--ink:#f7f7fb;--muted:#b5b8c7;--line:#353848;--accent:#f5b52e;--accent-ink:#171923;--red:#ff7373}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.shell{max-width:780px;margin:auto;padding:18px 15px 40px}.hero{background:linear-gradient(135deg,#242633,#171923);border:1px solid var(--line);border-radius:22px;padding:24px}.brand{font-size:12px;letter-spacing:2px;font-weight:850;color:var(--accent)}h1{font-size:clamp(28px,6vw,38px);margin:10px 0}.muted{color:var(--muted);font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}.stat span{display:block;color:var(--muted);font-size:12px}.stat b{font-size:24px;display:block;margin-top:4px}.panel{margin-top:14px}.panel h2{font-size:18px;margin:0 0 8px}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}.field label{font-size:12px;font-weight:750;color:var(--muted)}input,select{width:100%;font:inherit;color:var(--ink);background:#12131a;border:1px solid var(--line);border-radius:11px;padding:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{font:inherit;border:0;border-radius:11px;padding:12px 15px;font-weight:800;background:var(--accent);color:var(--accent-ink);cursor:pointer}.btn.secondary{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}.notice{background:#2a2a2e;border:1px solid #55472a;color:#f5d68c;border-radius:12px;padding:12px;font-size:13px;line-height:1.5}.row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.avatar{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-weight:900;flex-shrink:0}.grow{flex:1}.pill{font-size:11px;font-weight:800;border-radius:99px;padding:6px 9px;background:var(--panel2);color:var(--muted)}.foot{text-align:center;font-size:11px;color:var(--muted);margin-top:18px}a{color:var(--accent)}@media(max-width:430px){.grid{gap:7px}.stat{padding:10px}.stat b{font-size:20px}}
-</style></head>
-<body><main class="shell">
-<header class="hero"><div class="brand">FUT DE SEXTA · JOGADOR</div><h1>Vamos jogar nesta sexta?</h1><p class="muted">Entre com seu nome cadastrado para consultar a próxima partida.</p></header>
-<div class="grid"><div class="stat"><span>Jogadores de linha</span><b>0/12</b></div><div class="stat"><span>Goleiros</span><b>0/2</b></div><div class="stat"><span>Vagas de linha</span><b>12</b></div></div>
-<section class="panel"><h2>Acessar área do jogador</h2><p class="muted">Esta é uma demonstração visual. A lista de nomes e o acesso pessoal ainda serão conectados ao banco de dados.</p><div class="field"><label for="nome">Seu nome cadastrado</label><input id="nome" placeholder="Digite seu nome" maxlength="60"></div><button class="btn" onclick="entrar()">Continuar</button><p id="msg" class="muted" role="status"></p></section>
-<section class="panel"><h2>Próxima partida</h2><div class="notice">A confirmação real será ativada depois da conexão segura com o banco de dados.</div><div class="actions" style="margin-top:12px"><button class="btn" onclick="demo('Vou jogar')">Vou jogar</button><button class="btn secondary" onclick="demo('Não vou jogar')">Não vou jogar</button></div><p id="presenca" class="muted" role="status"></p></section>
-<section class="panel"><h2>Lista da partida</h2><div class="row"><div class="avatar">?</div><div class="grow"><strong>Aguardando conexão</strong><div class="muted">A lista compartilhada aparecerá aqui.</div></div><span class="pill">Demonstração</span></div></section>
-<div class="foot">Protótipo visual · confirmações ainda não são gravadas nem compartilhadas.</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101116">
+  <title>Fut de sexta — Jogador</title>
+  <style>
+    :root {
+      --bg: #101116;
+      --panel: #1b1d27;
+      --panel2: #242735;
+      --text: #f7f7fb;
+      --muted: #b5b8c7;
+      --line: #353848;
+      --accent: #ffbd2e;
+      --accent-ink: #171923;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      padding: 14px;
+    }
+    main { max-width: 780px; margin: auto; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+    .hero {
+      padding: 28px 24px;
+      background: linear-gradient(135deg, #202331, #171923);
+    }
+    .tag {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+    h1 { font-size: clamp(28px, 6vw, 38px); margin: 16px 0; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    p { color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .stat span { display: block; color: var(--muted); font-size: 12px; }
+    .stat strong { display: block; font-size: 24px; margin-top: 4px; }
+    label { display: block; font-size: 13px; font-weight: 700; margin: 14px 0 7px; }
+    input {
+      width: 100%;
+      background: #101116;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+    input:focus { border-color: var(--accent); }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      background: var(--panel2);
+      color: var(--text);
+    }
+    button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .notice {
+      background: #2a2a2f;
+      border: 1px solid #5b4a25;
+      border-radius: 12px;
+      color: #ffda83;
+      padding: 12px;
+      font-size: 13px;
+    }
+    .player-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding: 12px 0;
+    }
+    .player-row small { color: var(--muted); display: block; margin-top: 4px; }
+    .pill { font-size: 11px; background: var(--panel2); padding: 6px 9px; border-radius: 20px; white-space: nowrap; }
+    .hidden { display: none; }
+    .foot { text-align: center; font-size: 12px; color: var(--muted); }
+    @media (max-width: 520px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat:last-child { grid-column: 1 / -1; }
+      .panel { padding: 16px; }
+      .hero { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="panel hero">
+    <div class="tag">FUT DE SEXTA · JOGADOR</div>
+    <h1>Vamos jogar nesta sexta?</h1>
+    <p>Entre com seu nome cadastrado para consultar a próxima partida.</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><span>Jogadores de linha</span><strong id="outCount">0/12</strong></div>
+    <div class="stat"><span>Goleiros</span><strong id="goalCount">0/2</strong></div>
+    <div class="stat"><span>Vagas de linha</span><strong id="openCount">12</strong></div>
+  </section>
+
+  <section class="panel">
+    <h2>Acessar área do jogador</h2>
+    <p>Informe seu nome exatamente como foi cadastrado pelo organizador.</p>
+    <form id="loginForm">
+      <label for="playerName">Seu nome cadastrado</label>
+      <input id="playerName" maxlength="80" autocomplete="name" placeholder="Digite seu nome" required>
+      <div class="actions"><button class="primary" type="submit">Continuar</button></div>
+    </form>
+    <p id="loginMessage" role="status"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Próxima partida</h2>
+    <p id="welcome">Informe seu nome para visualizar as opções de presença.</p>
+    <div class="notice">Demonstração: as escolhas ainda não são compartilhadas com outros celulares.</div>
+    <div class="actions">
+      <button class="primary" id="yesBtn" disabled>Vou jogar</button>
+      <button id="noBtn" disabled>Não vou jogar</button>
+    </div>
+    <p id="choiceMessage" role="status"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Lista da partida</h2>
+    <p>Lista demonstrativa salva somente neste navegador.</p>
+    <div id="matchList"><div class="player-row"><div>Aguardando confirmações<small>As presenças aparecerão aqui.</small></div><span class="pill">Demonstração</span></div></div>
+  </section>
+  <p class="foot">Fut de sexta · Protótipo em desenvolvimento</p>
 </main>
+
 <script>
-function entrar(){const n=document.getElementById('nome').value.trim();document.getElementById('msg').textContent=n?'A tela está em demonstração. O acesso real será ativado após conectar e proteger o banco.':'Digite seu nome para continuar.';}
-function demo(v){document.getElementById('presenca').textContent='Você selecionou “'+v+'”, mas a confirmação ainda não foi registrada.';}
-</script></body></html>
+  const STORAGE_KEY = "futDeSextaDemoPresencas";
+  let currentName = "";
+
+  const readList = () => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+    catch { return []; }
+  };
+
+  function render() {
+    const list = readList();
+    const playing = list.filter(p => p.choice === "Vou jogar");
+    const keepers = playing.filter(p => p.type === "goleiro").length;
+    const outfield = playing.filter(p => p.type !== "goleiro").length;
+
+    document.getElementById("outCount").textContent = `${outfield}/12`;
+    document.getElementById("goalCount").textContent = `${keepers}/2`;
+    document.getElementById("openCount").textContent = Math.max(0, 12 - outfield);
+
+    const container = document.getElementById("matchList");
+    if (!list.length) {
+      container.innerHTML = '<div class="player-row"><div>Ninguém confirmou ainda<small>Esta lista existe apenas neste navegador.</small></div><span class="pill">Demonstração</span></div>';
+      return;
+    }
+
+    container.innerHTML = "";
+    list.forEach(person => {
+      const row = document.createElement("div");
+      row.className = "player-row";
+      const info = document.createElement("div");
+      const name = document.createElement("strong");
+      name.textContent = person.name;
+      const detail = document.createElement("small");
+      detail.textContent = person.choice;
+      info.append(name, detail);
+      const pill = document.createElement("span");
+      pill.className = "pill";
+      pill.textContent = person.type === "goleiro" ? "Goleiro" : "Linha";
+      row.append(info, pill);
+      container.append(row);
+    });
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", event => {
+    event.preventDefault();
+    currentName = document.getElementById("playerName").value.trim();
+    if (!currentName) return;
+    document.getElementById("welcome").textContent = `Olá, ${currentName}. Escolha sua disponibilidade para a próxima partida.`;
+    document.getElementById("yesBtn").disabled = false;
+    document.getElementById("noBtn").disabled = false;
+    document.getElementById("loginMessage").textContent = "Nome informado. Nesta demonstração, ele ainda não é validado contra um cadastro oficial.";
+  });
+
+  function saveChoice(choice) {
+    if (!currentName) return;
+    const list = readList();
+    const existing = list.findIndex(p => p.name.toLocaleLowerCase("pt-BR") === currentName.toLocaleLowerCase("pt-BR"));
+    const person = { name: currentName, choice, type: "linha", updatedAt: new Date().toISOString() };
+    if (existing >= 0) list[existing] = person;
+    else list.push(person);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    document.getElementById("choiceMessage").textContent = `Sua escolha nesta demonstração: ${choice}.`;
+    render();
+  }
+
+  document.getElementById("yesBtn").addEventListener("click", () => saveChoice("Vou jogar"));
+  document.getElementById("noBtn").addEventListener("click", () => saveChoice("Não vou jogar"));
+  render();
+</script>
+</body>
+</html>
