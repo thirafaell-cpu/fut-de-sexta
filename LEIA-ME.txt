@@ -1,18 +1,11 @@
-FUT DE SEXTA — PROTÓTIPO PARA PREPARAÇÃO
+FUT DE SEXTA — PRIMEIRA ETAPA VISUAL
 
-Arquivos:
-- index.html: página inicial com links para as duas áreas.
-- organizador.html: painel do organizador, com tela de código de demonstração.
-- jogador.html: página para confirmação de presença e lista de espera.
-
-Como testar:
-1. Extraia o ZIP para uma pasta.
-2. Abra index.html no navegador.
-3. Entre na área do organizador e use o código temporário 2468.
-4. Abra a área do jogador para testar a interface.
+Conteúdo:
+- index.html: página inicial com identidade visual grafite/branco/amarelo, sem verde.
+- jogador.html: demonstração visual da área do jogador; não grava confirmações.
+- organizador.html: painel administrativo temporariamente bloqueado para evitar acesso público sem autenticação.
 
 IMPORTANTE:
-Este é apenas um protótipo local. Os dados ficam no armazenamento do navegador e não são sincronizados entre dispositivos. O código 2468 é demonstrativo e NÃO é segurança real, pois está no código da página. Não use para proteger informações reais. Antes de publicar, é necessário configurar autenticação validada no servidor e banco de dados compartilhado, além de revisar as permissões do organizador.
-
-
-ESTADO ATUAL: não publique como sistema oficial. Os dados ainda ficam no armazenamento local do navegador e não sincronizam entre telefones. O código de demonstração do organizador não é segurança real. A conexão com Supabase, autenticação e permissões seguras ainda precisam ser concluídas e testadas.
+Estes arquivos são apenas uma etapa visual de segurança. Ainda NÃO estão conectados ao Supabase.
+Não usar para confirmações reais nem dados de jogadores/pagamentos.
+Depois de substituir os arquivos no GitHub, será necessário configurar autenticação e políticas RLS antes de habilitar funções reais.
